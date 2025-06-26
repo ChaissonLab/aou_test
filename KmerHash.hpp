@@ -73,24 +73,27 @@ class Kmer_hash
 {
 public:
     Kmer_hash()
+        : Hash1(make_unique<uint[]>(large_prime))
     {
-        std::fill_n(Hash1.get(), large_prime, MAX_UINT32);
+        std::fill_n(Hash1.get(), large_prime, 0);
     };
     ~Kmer_hash()
     {
         
     };
+
+	void savehash(const std::string& outputfile, ull totalkmers);
+    ull loadhash(const std::string& outputfile);
 	void addvalue(const ull kmer_int, uint8* counts, Excess_hash &excess_counts);
     uint16 findvalue(const ull kmer_int, const uint8* counts, Excess_hash &excess_counts);
     void preview(const ull kmer_int);
     void initiate();
     bool add(const ull kmer_int);
-    uint* find(const ull kmer_int);
 	uint findhash(ull kmer_int);
     ull totalkmer = 0;
-    uint32_t totalcollision = 0;
+    uint32_t totaleles = 0;
     uint32_t bucketcollision = 0;
-    unique_ptr<uint[]> Hash1 = make_unique<uint[]>(large_prime );
+    unique_ptr<uint[]> Hash1;
     vector<uint> Hash2;
     vector<uint8_t> Hash2_size;
     

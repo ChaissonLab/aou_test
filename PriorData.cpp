@@ -477,7 +477,7 @@ size_t PriorData::LoadRow(uint16* matrix, size_t rindex, string &StrLine, vector
     //size_t count = std::count_if( StrLine.begin(), StrLine.end(), []( char c ){return c ==',';}) + 3;
     matrix[0] = StrLine[1];
     
-    uint16 rownum = FIXCOL;
+    uint rownum = FIXCOL;
     uint16 element = 0;
     char c;
         
@@ -590,7 +590,7 @@ size_t PriorData::LoadRow(uint16* matrix, size_t rindex, string &StrLine, vector
         larger_kmer += StrLine[startpos] - '0';
     }
     ++startpos;
-    uint hash = *(kmerhashtable->find(larger_kmer));
+    uint hash = kmerhashtable->findhash(larger_kmer);
     kmerhashs[kmerhashs_index++] = hash;
     
     
@@ -659,8 +659,9 @@ size_t PriorData::LoadRow(uint16* matrix, size_t rindex, string &StrLine, vector
                 element += c - '0';
         }
     }
-    
-    matrix[1] = rownum - FIXCOL;
+	if (rownum >= MAX_UINT16) rownum = FIXCOL + matrix[9];   
+
+    matrix[1] = (uint) rownum - FIXCOL;
     
     return rownum;
     

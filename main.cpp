@@ -66,7 +66,7 @@ int main(int argc, const char * argv[])
         printHelp();
         return 0;
     }
-    
+    std::cerr <<"About to process arguments."<< endl;
     for (int i = 1; i < argc ; i++)
     {
         
@@ -118,6 +118,10 @@ int main(int argc, const char * argv[])
             {
                 outputfiles.push_back(line);
             }
+	    std::cerr << "Done reading " << outputfiles.size() << " output files." << endl;
+	    for (auto of: outputfiles) {
+	      std::cerr << of << endl;
+	    }
         }
 
         else if (strcmp(Argument, "-bed") ==0 )
@@ -215,8 +219,8 @@ int main(int argc, const char * argv[])
         }
         
     }
-    
-    if (!inputfiles.size()) return 1;
+    std::cerr << "Done processing command line" << endl;
+    //if (!inputfiles.size()) return 1;
     
     auto begin = std::chrono::high_resolution_clock::now();
     

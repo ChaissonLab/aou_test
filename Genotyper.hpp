@@ -22,7 +22,7 @@
 #include "KmerWindow.hpp"
 #include "KmerMatrix.hpp"
 
-#define DefaultSize 5000
+#define DefaultSize 2000
 #define DefaultKmeralloc 1000000
 
 
@@ -95,11 +95,15 @@ public:
             {
                 kmer_counts.get()[i] = count + excess_kmers.findvalue(hashs[i]);
             }
+            
         }
     }
     
     void runOneGroup(const PriorChunk* priorData, const std::string& inputfile, const std::string& outputfile, const float depth, std::mutex& Threads_lock)
     {
+        
+        
+        
         auto t1 = std::chrono::steady_clock::now();
         
         transfercounts(priorData->kmerhashs, priorData->kmervec_size);
@@ -117,6 +121,7 @@ public:
         
         regresser.Call(kmer_counts.get(), priorData->kmer_matrix, depth, priorData->genenum, priorData->kmervec_size, norm_vec.get(), norm_matrix.get(), reduce_matrix.get(), total_lambda, priorData->gene_kmercounts, coefs.get(), residuels.get(), priorData->numgroups, priorData->genegroups, priorData->numsmallgroups, priorData->smallgroups, priorData->groupkmernums);
 
+        
         
         auto t3 = std::chrono::steady_clock::now();
         elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(t3 - t2).count();
@@ -267,9 +272,9 @@ public:
         
         memset(kmer_counts.get(), 0, sizeof(uint16) * priorData->kmervec_size);
         
-        memcpy(norm_matrix.get(), priorData->prior_norm, sizeof (FLOAT_T) *  priorData->prior_norm_allocsize);
+        memcpy(norm_matrix.get(), priorData->prior_norm, sizeof (FLOAT_T) * priorData->nodenum *  priorData->nodenum);
                                 
-        memset(norm_vec.get(), 0, sizeof (FLOAT_T) * MEMEXP * gnum );
+        memset(norm_vec.get(), 0, sizeof (FLOAT_T) * priorData->nodenum );
         
         memset(coefs.get(), 0, sizeof(FLOAT_T) * gnum);
         

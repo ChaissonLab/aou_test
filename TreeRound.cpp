@@ -96,12 +96,12 @@ inline pair<const node*, float> reproject(pair<const node*, float>& left, pair<c
         new_reminder_right = norm_dot_residuel_right / norm_value_right + reminder_right;
         
         
-        /*
+        
         for (int i =0; i < size; ++i)
         {
             rounding_residuels[i] += (new_reminder_right - reminder_right) * weightnorm[size*i+index_right] - reminder_left * weightnorm[size*i+index_left]  ;
         }
-         */
+         
         
         //calculate the left coeficients as sources after reprojection
         norm_dot_residuel_left = 0.0; norm_dot_residuel_right = 0.0; residuel = 0.0 ;
@@ -153,12 +153,12 @@ inline pair<const node*, float> reproject(pair<const node*, float>& left, pair<c
         
         new_reminder_left = norm_dot_residuel_left / norm_value_left + reminder_left;
         
-        /*
+        
         for (int i =0; i < size; ++i)
         {
             rounding_residuels[i] += (new_reminder_left - reminder_left) * weightnorm[size*i+index_left] - reminder_right * weightnorm[size*i+index_right] ;
         }
-        */
+        
         
         //calculate the left coeficients as sources after reprojection
         norm_dot_residuel_left = 0.0; norm_dot_residuel_right = 0.0; residuel = 0.0 ;

@@ -13,7 +13,7 @@ void Processor::Run()
         totalgroups = priordata_manager.LoadIndex();
     }
    
-    cout<<"reading all kmer targets"<<endl;
+    std::cerr<<"reading all kmer targets"<<endl;
     
     //kmer_hash.initiate(4 * priordata_manager.totalkmers);
  
@@ -21,8 +21,21 @@ void Processor::Run()
     if (backgroundfile.length() > 0) Counter->load_backgrounds(backgroundfile.c_str());
         
     //Counter->LoadRegion(regions);
-    totalkmers = Counter->read_target(matrixfile.c_str());
-    
+	 
+  	std::string binfile = matrixfile + ".bin";
+
+    // Check if binary file exists
+    if (std::filesystem::exists(binfile)) {
+        std::cout << "Loading kmer_hash from binary: " << binfile << std::endl;
+        totalkmers = Counter->kmer_hash.loadhash(binfile);
+    } else {
+        std::cout << "Binary not found. Reading targets from: " << matrixfile << std::endl;
+        totalkmers = Counter->read_target(matrixfile.c_str());
+
+        std::cout << "Saving kmer_hash to binary: " << binfile << std::endl;
+        Counter->kmer_hash.savehash(binfile, totalkmers);
+    }
+ 
     
     priordata_manager.Addhash(&(Counter->kmer_hash));
     cout<<"finishing reading targets, start genotyping"<<endl;

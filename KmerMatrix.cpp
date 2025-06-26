@@ -345,7 +345,7 @@ void flatNorm(const node* tree, const uint16 nodenum, FLOAT_T *norm_vec, FLOAT_T
     }
 }
 
-
+/*
 void KmerMatrix::getNorm(const uint16* kmervec, const uint16* kmermatrix,const FLOAT_T depth, const uint16 gnum, const uint knum, FLOAT_T* norm_vec, FLOAT_T* norm_matrix, FLOAT_T  &total_lambda)
 {
     //memset(norm_matrix , 0,sizeof(FLOAT_T)*gnum*gnum);
@@ -449,6 +449,7 @@ void KmerMatrix::getNorm(const uint16* kmervec, const uint16* kmermatrix,const F
     AddOffsites(norm_vec, norm_matrix, vec_offsite, matrix_offsite, row_offsites.get(), diag_offsites.get(), gnum);
     
 }
+*/
 
 void flatPriorNorm2(const node* tree, const uint16 nodenum, FLOAT_T *norm_matrix, const uint16 matrix_size)
 {

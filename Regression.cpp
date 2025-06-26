@@ -480,7 +480,7 @@ void Regression::Call(const uint16* kmervec, const uint16* kmermatrix, const FLO
     
     float regressed_kmer = 0.0;
     
-    if (gnum > 10000)
+    if (gnum > 6000)
     {
         ruduce_nnls(norm_vec, norm_matrix, reduce_matrix, gnum, coefs, residuels, numsmallgroups, smallgroups);
     }

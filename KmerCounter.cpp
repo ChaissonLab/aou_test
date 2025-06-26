@@ -118,7 +118,7 @@ void KmerCounter::load_backgrounds(const char * backgroudfile)
                         
             uint hash_ = larger_kmer % bgkmernum;
 			
-			if (hash_ == 0)
+			if (hash_ != 0)
 			{
 				backgrounds[hash_] = larger_kmer;
 				totalbks ++;
@@ -205,7 +205,7 @@ ull KmerCounter::read_target(FastaReader &fastafile)
         }
     }
     
-    return kmer_hash.totalcollision + large_prime;
+    return kmer_hash.totaleles + 10;
 
 };
 
@@ -261,7 +261,7 @@ ull KmerCounter::read_target(KtableReader &ktablefile)
         
     }
     
-    return kmer_hash.totalcollision + large_prime;
+    return kmer_hash.totaleles + 10;
         
 };
  
@@ -325,7 +325,7 @@ void KmerCounter::Call(const char* inputfile, counterint* samplevecs, Excess_has
             count_kmer_(readsfile, samplevecs, exbucks, nBases, nReads, nBg, 1);
             readsfile.Close();
         }
-        else if (pathlen > 5 && ( strcmp(file+(pathlen-5),".cram") == 0 ))
+        else if (pathlen > 5 && ( strcmp(file+(pathlen-5),".cram") == 0  || strcmp(file+(pathlen-4),".bam") == 0 || strcmp(file+(pathlen-4),".sam") == 0  ))
         {
             CramReader readsfile(file);
             readsfile.LoadRegion(regions);
@@ -398,9 +398,8 @@ void KmerCounter::count_kmer(FastaReader &file, counterint* samplevecs, Excess_h
             if (++current_size < klen) continue;
             
             auto larger_kmer = (current_kmer >= reverse_kmer) ? current_kmer:reverse_kmer;
-			if (larger_kmer == 3150240981266364974) {cout <<"get kmer" <<kmer_hash.findvalue(larger_kmer, samplevecs, exbucks) << endl; cout << StrLine<<endl;}
             update_counter(kmer_hash, larger_kmer, samplevecs, exbucks);
-            
+                        
             if ( ifbg && __builtin_expect(backgrounds[larger_kmer % bgkmernum] == larger_kmer , 0)  )
             {
                 nBg ++;

@@ -41,10 +41,10 @@ public:
     
 private:
         
-    unique_ptr<FLOAT_T[]> row_offsites = unique_ptr<FLOAT_T []>( new FLOAT_T [MAX_UINT16] ) ;
-    unique_ptr<FLOAT_T[]> diag_offsites = unique_ptr<FLOAT_T[]>( new FLOAT_T [MAX_UINT16] ) ;
+    //unique_ptr<FLOAT_T[]> row_offsites = unique_ptr<FLOAT_T []>( new FLOAT_T [MAX_UINT16] ) ;
+    //unique_ptr<FLOAT_T[]> diag_offsites = unique_ptr<FLOAT_T[]>( new FLOAT_T [MAX_UINT16] ) ;
     unique_ptr<uint16[]> repeat_counts = unique_ptr<uint16[]>( new uint16 [MAX_UINT16] ) ;
-    unique_ptr<uint16[]> repeat_keys = unique_ptr<uint16[]>( new uint16 [MAX_UINT16] ) ;
+    //unique_ptr<uint16[]> repeat_keys = unique_ptr<uint16[]>( new uint16 [MAX_UINT16] ) ;
     
 };
 

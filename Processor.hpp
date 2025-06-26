@@ -55,7 +55,7 @@ public:
     genes(g),
     matrixfile(mfile),
     backgroundfile(bfile),
-    priordata_manager(mfile, n),
+    priordata_manager(mfile, (n+1)/2),
     regions(r),
     window(w),
     nthreads(n),
