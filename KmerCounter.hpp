@@ -109,7 +109,7 @@ public:
  
     void read_files(std::vector<std::string>& inputfiles, std::vector<std::string>& outputfiles, std::vector<std::string>& prefixes,std::vector<float>& deps,int numthread);
     
-    void Call(const char* infile, counterint* samplevecs, Excess_hash &exbucks, ull_atom &nBases, ull_atom &nReads, ull_atom &nBg, const int nthreads);
+  void Call(const char* infile, counterint* samplevecs, Excess_hash &exbucks, ull_atom &nBases, ull_atom &nReads, ull_atom &nBg, const int nthreads, std::string reference="");
         
     std::vector<ull> backgrounds;
 	ull totalbks = 0;

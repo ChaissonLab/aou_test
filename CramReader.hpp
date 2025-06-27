@@ -22,10 +22,11 @@ class CramReader: public FileReader {
    
 public:
     
-    CramReader(const char* inputfile): FileReader(inputfile)
+    CramReader(const char* inputfile, string refname=""): FileReader(inputfile)
     {
         kstring = new kstring_t();        
         SRread = bam_init1();
+	reference=refname;
     };
     ~CramReader()
     {
@@ -62,7 +63,7 @@ private:
     std::vector<char*>* workregions;
 
     std::mutex IO_lock;
-    
+    string reference; 
 
   bool ifindex = 0;
          

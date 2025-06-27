@@ -46,6 +46,9 @@ void CramReader::LoadRegion(std::vector<char *>& bedregions)
 	try
 	{
 	     samfile = hts_open(filepath, "r");
+	     if (samfile and reference != "") {
+		     hts_set_fai_filename(samfile, reference.c_str());
+	     }
 	     indexdata = sam_index_load2(samfile, filepath, indexpath.c_str());
 	}
         catch (const std::bad_alloc&)

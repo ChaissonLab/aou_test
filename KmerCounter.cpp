@@ -285,7 +285,7 @@ ull KmerCounter::read_target(const char* inputfile)
     return totalhash;
 }
 
-void KmerCounter::Call(const char* inputfile, counterint* samplevecs, Excess_hash &exbucks, ull_atom &nBases, ull_atom &nReads, ull_atom &nBg, const int nthreads)
+void KmerCounter::Call(const char* inputfile, counterint* samplevecs, Excess_hash &exbucks, ull_atom &nBases, ull_atom &nReads, ull_atom &nBg, const int nthreads, std::string reference)
 {
     
     vector<string> files;
@@ -327,7 +327,7 @@ void KmerCounter::Call(const char* inputfile, counterint* samplevecs, Excess_has
         }
         else if (pathlen > 5 && ( strcmp(file+(pathlen-5),".cram") == 0  || strcmp(file+(pathlen-4),".bam") == 0 || strcmp(file+(pathlen-4),".sam") == 0  ))
         {
-            CramReader readsfile(file);
+	  CramReader readsfile(file, reference);
             readsfile.LoadRegion(regions);
             count_kmer_(readsfile, samplevecs, exbucks, nBases, nReads, nBg, nthreads);
             readsfile.Close();
@@ -462,7 +462,7 @@ void KmerCounter::count_kmer(CramReader &file, counterint* samplevecs, Excess_ha
             cerr << "read " << nReads / 1000000 << "M reads." << endl;
         }
     }
-        
+    cerr << "Finished reading " << nReads << " reads." << endl; 
     return ;
 };
 

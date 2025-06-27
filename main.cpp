@@ -36,6 +36,7 @@ void printHelp()
               << "  -D, --Depth <file>         File with a list of predetermined depth values, not compatible with -b options\n"
               << "  -b, --background <file>    Background k-mer file, used to determine NGS coverage, not compatible with -d/-D options \n"
               << "  -c, --corr <0/1>           Set correction for biased k-mer option for NGS data (default: 0)\n"
+	      << "  -T, --reference <file>     Specify reference for reading.\n"
               << "  -h, --help                 Show this help message\n"
               << std::endl;
 }
@@ -60,6 +61,7 @@ int main(int argc, const char * argv[])
     int nthreads = 1;
     int Nsubthreads = 1;
     int window = 30;
+    std::string reference="";
 
     if (argc == 1 or strcmp(argv[1], "-h")==0 or strcmp(argv[1], "--help")==0)
     {
@@ -103,7 +105,9 @@ int main(int argc, const char * argv[])
         {
             outputfiles.push_back(argv[i]);
         }
-
+        else if (strcmp(Argument, "-T")==0 or strcmp(Argument, "--reference")==0) {
+            reference=argv[i];
+	}
         else if (strcmp(Argument, "-O")==0 or strcmp(Argument, "--Outputs")==0)
         {
             std::ifstream pathfile(argv[i]);
@@ -224,7 +228,7 @@ int main(int argc, const char * argv[])
     
     auto begin = std::chrono::high_resolution_clock::now();
     
-    Processor *processor = new Processor(inputfiles, outputfiles, depths, kmatrixfile, backgroundfile,genes, regions, window, nthreads, Nsubthreads);
+    Processor *processor = new Processor(inputfiles, outputfiles, depths, kmatrixfile, backgroundfile,genes, regions, window, nthreads, Nsubthreads, reference);
 
     processor->Run();
     

@@ -47,7 +47,8 @@ public:
               std::vector<char *> &r,
               const int w,
               const int n,
-              const int N
+              const int N,
+	      string ref=""
     ):
     inputfiles(infiles),
     outputfiles(outfiles),
@@ -59,7 +60,8 @@ public:
     regions(r),
     window(w),
     nthreads(n),
-    Nsubthreads(N)
+    Nsubthreads(N),
+    reference(ref)
     {};
     
     
@@ -77,7 +79,7 @@ public:
     const int window;
     const int nthreads;
     const int Nsubthreads;
-    
+  std::string reference;
 private:
     uint totalkmers, totalgroups;
     std::atomic_uint restfileindex = {0};

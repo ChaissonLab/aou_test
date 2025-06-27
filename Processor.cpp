@@ -60,7 +60,7 @@ void Processor::Run()
 void Processor::Onethread()
 {
     
-    unique_ptr<Genotyper> genotyper = unique_ptr<Genotyper>(new Genotyper(totalkmers, totalgroups,  *Counter, priordata_manager, window, Nsubthreads));
+    unique_ptr<Genotyper> genotyper = unique_ptr<Genotyper>(new Genotyper(totalkmers, totalgroups,  *Counter, priordata_manager, window, Nsubthreads, reference));
     
     
     while (restfileindex < inputfiles.size() )

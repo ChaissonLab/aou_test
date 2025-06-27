@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <vector>
 #include <utility>
+#include <string>
 #include <unordered_set>
 
 #include "config.hpp"
@@ -39,7 +40,8 @@ public:
     const size_t knum, pnum;
     const uint window;
     const int Nsubthreads;
-    Genotyper(size_t k, size_t p, KmerCounter &c ,PriorData &priordata, const int w, const int N):
+    std::string reference;
+    Genotyper(size_t k, size_t p, KmerCounter &c ,PriorData &priordata, const int w, const int N, std::string ref=""):
     knum(k),
     pnum(p),
     window(w),
@@ -48,7 +50,7 @@ public:
     all_kmer_counts(new counterint[k+1]),
     kmer_counts(new uint16[DefaultKmeralloc]),
     Nsubthreads(N),
-    
+    reference(ref), 
     norm_vec(new FLOAT_T[MEMEXP*DefaultSize]),
     norm_matrix(new FLOAT_T[MEMEXP*MEMEXP *DefaultSize*DefaultSize]),
     reduce_matrix(new FLOAT_T[DefaultSize*DefaultSize]),
@@ -68,7 +70,7 @@ public:
 
         auto begin = std::chrono::high_resolution_clock::now();
                 
-        counter.Call(inputfile.c_str(), all_kmer_counts.get(), excess_kmers, totalbases, totalreads, totalbgs, Nsubthreads);
+        counter.Call(inputfile.c_str(), all_kmer_counts.get(), excess_kmers, totalbases, totalreads, totalbgs, Nsubthreads, reference);
 
         finishcounting = 1;
 
